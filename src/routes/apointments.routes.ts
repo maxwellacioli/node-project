@@ -11,11 +11,14 @@ appointmentsRouter.post('/', (req, res) => {
 
   const parseDate = startOfHour(parseISO(date));
 
-  if (appointmentsRepository.findAppointmentByDate(parseDate)) {
+  if (appointmentsRepository.findByDate(parseDate)) {
     return res.status(401).json('Already exists an appointment with same date');
   }
 
-  const appointment = appointmentsRepository.create(provider, parseDate);
+  const appointment = appointmentsRepository.create({
+    provider,
+    date: parseDate
+  });
 
   return res.json(appointment);
 });
