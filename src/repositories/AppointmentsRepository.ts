@@ -8,7 +8,7 @@ class AppointmentsRepository {
     this.appointments = [];
   }
 
-  public create(provider: string, date: Date) {
+  public create(provider: string, date: Date): Appointment {
     const appointment = new Appointment(provider, date);
 
     this.appointments.push(appointment);
@@ -20,6 +20,10 @@ class AppointmentsRepository {
     const appointment = this.appointments.find(a => isEqual(a.date, date));
 
     return appointment != undefined ? true : false;
+  }
+
+  public all(): Array<Appointment> {
+    return this.appointments;
   }
 }
 
